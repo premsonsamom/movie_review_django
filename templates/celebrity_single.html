@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+
+{% block container %}
+
+<div class="hero hero3">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<!-- <h1> movie listing - list</h1>
+				<ul class="breadcumb">
+					<li class="active"><a href="#">Home</a></li>
+					<li> <span class="ion-ios-arrow-right"></span> movie listing</li>
+				</ul> -->
+			</div>
+		</div>
+	</div>
+</div>
+<!-- celebrity single section-->
+
+<div class="page-single movie-single cebleb-single">
+	<div class="container">
+		<div class="row ipad-width">
+			<div class="col-md-4 col-sm-12 col-xs-12">
+				<div class="mv-ceb">
+					<img src="{{s.image_url}}" alt="">
+				</div>
+			</div>
+			<div class="col-md-8 col-sm-12 col-xs-12">
+				<div class="movie-single-ct">
+                    {% if search_ %}
+					<h1 class="bd-hd">{{s.artist_name}}</h1>
+					<p class="ceb-single">Actor  </p>
+					<!-- <div class="social-link cebsingle-socail">
+						<a href="#"><i class="ion-social-facebook"></i></a>
+						<a href="#"><i class="ion-social-twitter"></i></a>
+						<a href="#"><i class="ion-social-googleplus"></i></a>
+						<a href="#"><i class="ion-social-linkedin"></i></a>
+					</div> -->
+					<div class="movie-tabs">
+						<div class="tabs">
+							<ul class="tab-links tabs-mv">
+								<li class="active"><a href="#overviewceb">Overview</a></li>
+								 
+								<li><a href="#filmography">filmography</a></li>                        
+							</ul>
+						    <div class="tab-content">
+						        <div id="overviewceb" class="tab active">
+						            <div class="row">
+						            	<div class="col-md-8 col-sm-12 col-xs-12">
+						            		<p>{{s.brief_info}}</p>
+											<p>Hugh Michael Jackman is an Australian actor, singer, multi-instrumentalist, dancer and producer. Jackman has won international recognition for his roles in major films, notably as superhero, period, and romance characters. </p>
+											<p class="time"><a href="#">See full bio <i class="ion-ios-arrow-right"></i></a></p>
+						            		<!-- <div class="title-hd-sm">
+												<h4>Videos & Photos</h4>
+												<a href="#" class="time">All 5 Videos & 245 Photos <i class="ion-ios-arrow-right"></i></a>
+											</div>
+											<div class="mvsingle-item ov-item">
+												<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image11.jpg" ><img src="images/uploads/image1.jpg" alt=""></a>
+												<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image21.jpg" ><img src="images/uploads/image2.jpg" alt=""></a>
+												<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image31.jpg" ><img src="images/uploads/image3.jpg" alt=""></a>
+												<div class="vd-it">
+													<img class="vd-img" src="images/uploads/image4.jpg" alt="">
+													<a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="images/uploads/play-vd.png" alt=""></a>
+												</div>
+											</div> -->
+											
+						            	</div>
+						            	<div class="col-md-4 col-xs-12 col-sm-12">
+						            		<div class="sb-it">
+						            			<h6>Fullname:  </h6>
+						            			<p><a href="#">{{s.artist_name}}</a></p>
+						            		</div>
+						            		<div class="sb-it">
+						            			<h6>Gender: </h6>
+						            			<p>{{s.gender}}</p>
+						            		</div>
+						            		<!-- <div class="sb-it">
+						            			<h6>Country:  </h6>
+						            			<p>Australian</p>
+						            		</div>
+						            		<div class="sb-it">
+						            			<h6>Height:</h6>
+						            			<p>186 cm/p>
+						            		</div>
+						            		<div class="sb-it">
+						            			<h6>Keywords:</h6>
+						            			<p class="tags">
+						            				<span class="time"><a href="#">jackman</a></span>
+													<span class="time"><a href="#">wolverine</a></span>
+													<span class="time"><a href="#">logan</a></span>
+													<span class="time"><a href="#">blockbuster</a></span>
+													<span class="time"><a href="#">final battle</a></span>
+						            			</p>
+						            		</div> -->
+						            		<div class="ads">
+												<img src="images/uploads/ads1.png" alt="">
+											</div>
+						            	</div>
+						            </div>
+						        </div>
+						        
+					       	 	<div id="filmography" class="tab">
+						        	<div class="row">
+						            	<div class="rv-hd">
+						            		<!-- <div>
+						            			<h3>Biography of</h3>
+					       	 					<h2>Hugh Jackman</h2>
+						            		</div> -->
+										
+						            	</div>
+						            	<div class="topbar-filter">
+											<p>Found <span>{{movie_count}} movies</span> in total</p>
+											<label>Filter by:</label>
+											<select>
+												<option value="popularity">Popularity Descending</option>
+												<option value="popularity">Popularity Ascending</option>
+												<option value="rating">Rating Descending</option>
+												<option value="rating">Rating Ascending</option>
+												<option value="date">Release date Descending</option>
+												<option value="date">Release date Ascending</option>
+											</select>
+										</div>
+										<!-- movie cast -->
+                                        <div class="mvcast-item">											
+                                            <div class="cast-it">
+                                                {% for movies in movie_result %}
+                                                <div class="cast-left cebleb-film">
+                                                        <img class="movie_artist_list" src="{{movies.movie_id.poster_link}}" alt="">
+                                                        <div>
+                                                            <a href="#">{{movies.movie_id.movie_name}} </a>
+                                                            <p class="time">{{movies.movie_id.run_time}} min </p>
+                                                        </div> 
+                                                </div>
+                                                <p>{{movies.movie_id.year_of_release}}</p>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+										<!-- <div class="mvcast-item">
+                                            {% for movies in movie_result %}											
+											<div class="cast-it">
+												<div class="cast-left cebleb-film"> 	
+                                                        <img src="{{movies.movie_id.image_url}}" alt="">
+                                                        <div>
+                                                            <a href="#">{{movies.movie_id.movie_name}} </a>
+                                                            <p class="time">{{movies.movie_id.run_time}} min</p>
+                                                        </div>
+												</div>  
+												<p>{{movies.movie_id.year_of_release}}</p>
+											</div>
+                                            {% endfor %}
+											
+										</div> -->
+                                        
+						            </div>
+					       	 	</div>
+						    </div>
+						</div>
+					</div>
+                    {% else %}
+					<h1 class="bd-hd">{{b}} <span></span></h1>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+<!-- celebrity single section-->
+{% endblock %}
