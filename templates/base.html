@@ -19,7 +19,8 @@
 	<meta name="keywords" content="">
 	<meta name="author" content="">
 	<link rel="profile" href="#">
-
+	<!-- AutoComplete -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <!--Google Font-->
     <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
 	<!-- Mobile specific meta -->
@@ -33,16 +34,15 @@
 </head>
 <body>
 <!--preloading-->
-<div id="preloader">
-    <!-- <img class="logo" src="{{baseUrl}}/logo1.png" alt="" width="119" height="58"> -->
+<!-- <div id="preloader">
     <div id="status">
         <span></span>
         <span></span>
     </div>
-</div>
+</div> -->
 <!--end of preloading-->
 <!--login form popup-->
-<div class="login-wrapper" id="login-content">
+<!-- <div class="login-wrapper" id="login-content">
     <div class="login-content">
         <a href="#" class="close">x</a>
         <h3>Login</h3>
@@ -81,10 +81,10 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!--end of login form popup-->
 <!--signup form popup-->
-<div class="login-wrapper"  id="signup-content">
+<!-- <div class="login-wrapper"  id="signup-content">
     <div class="login-content">
         <a href="#" class="close">x</a>
         <h3>sign up</h3>
@@ -144,7 +144,7 @@
            </div>
         </form>
     </div>
-</div>
+</div> -->
 <!--end of signup form popup-->
 
 <!-- BEGIN | Header -->
@@ -167,7 +167,7 @@
 					</a>
 			    </div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
+				<!-- <div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav flex-child-menu menu-left">
 						<li class="hidden">
 							<a href="#page-top"></a>
@@ -242,8 +242,8 @@
 								<li><a href="404.html">404 Page</a></li>
 								<li class="it-last"><a href="comingsoon.html">Coming soon</a></li>
 							</ul>
-						</li>                
-						<li><a href="#">Help</a></li>
+						</li>                 -->
+						<!-- <li><a href="#">Help</a></li> -->
                         <!-- {% if user.is_authenticated %}
                             <li><a style="color: lightgreen;">Hello, {{user.first_name}}</a></li>
                             <li><a href="logout">Logout</a></li>
@@ -253,8 +253,8 @@
                         {% endif %} -->
 						<!-- <li class="loginLink"><a href="#">LOG In</a></li>
 						<li class="btn signupLink"><a href="#">sign up</a></li> -->
-					</ul>
-				</div>
+					<!-- </ul>
+				</div> -->
 			<!-- /.navbar-collapse -->
 	    </nav>
 	    
@@ -265,14 +265,15 @@
 			<form class="top-search" style="width: 100%;" method="POST" action="search">
 			{% csrf_token %}
 				<select name="search_category" style="width: 20%;">
+					<option value="all">All</option>
 					<option value="movie">Movies</option>
 					<option value="actor">Actor</option>
 					<option value="saab">Others</option>
 				</select>
-				<input type="text" style=" border-right: 1px solid black; width:70%" name="search_items" placeholder="Search for a movie, TV Show or celebrity that you are looking for">
+				<input type="text" id="query"  style=" border-right: 1px solid black; width:70%" name="search_items" placeholder="Search for a movie, TV Show or celebrity that you are looking for">
 				<button style="width: 10%;" type="submit" class="search_btn_movie form-control"><i class="fa fa-search" aria-hidden="true"></i></button>
 			</form>
-			
+			<!-- <input type="text" id="query" style=" border-right: 1px solid black; width:70%"  placeholder="Search for a movie, TV Show or celebrity that you are looking for"> -->
 		</div>
 	</div>
 </header>
@@ -286,52 +287,7 @@
 <!--end of latest new v1 section-->
 <!-- footer section-->
 <footer class="ht-footer">
-	<div class="container">
-		<div class="flex-parent-ft">
-			<div class="flex-child-ft item1">
-				 <a href="#"><img class="logo" src="{{baseUrl}}/logo1.png" alt=""></a>
-				 <p>Uripok Huidrom Leikai<br>
-				New York, NY 10001</p>
-				<p>Call us: <a href="#">(+01) 202 342 6789</a></p>
-			</div>
-			<div class="flex-child-ft item2">
-				<h4>Resources</h4>
-				<ul>
-					<li><a href="#">About</a></li> 
-					<li><a href="#">Blockbuster</a></li>
-					<li><a href="#">Contact Us</a></li>
-					<li><a href="#">Forums</a></li>
-					<li><a href="#">Blog</a></li>
-					<li><a href="#">Help Center</a></li>
-				</ul>
-			</div>
-			<div class="flex-child-ft item3">
-				<h4>Legal</h4>
-				<ul>
-					<li><a href="#">Terms of Use</a></li> 
-					<li><a href="#">Privacy Policy</a></li>	
-					<li><a href="#">Security</a></li>
-				</ul>
-			</div>
-			<div class="flex-child-ft item4">
-				<h4>Account</h4>
-				<ul>
-					<li><a href="#">My Account</a></li> 
-					<li><a href="#">Watchlist</a></li>	
-					<li><a href="#">Collections</a></li>
-					<li><a href="#">User Guide</a></li>
-				</ul>
-			</div>
-			<div class="flex-child-ft item5">
-				<h4>Newsletter</h4>
-				<p>Subscribe to our newsletter system now <br> to get latest news from us.</p>
-				<form action="#">
-					<input type="text" placeholder="Enter your email...">
-				</form>
-				<a href="#" class="btn">Subscribe now <i class="ion-ios-arrow-forward"></i></a>
-			</div>
-		</div>
-	</div>
+	
 	<div class="ft-copyright">
 		<div class="ft-left">
 			<p><a target="_blank" href="#">Developed by Premson Singh Samom</a></p>
@@ -378,6 +334,27 @@
 <script src="{% static 'js/plugins.js' %}"></script>
 <script src="{% static 'js/plugins2.js' %}"></script>
 <script src="{% static 'js/custom.js' %}"></script>
+
+
+<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+	$(function() {
+	  $("#query").autocomplete({
+		source: "search_auto",
+		select: function (event, ui) { //item selected
+		  AutoCompleteSelectHandler(event, ui)
+		},
+		minLength: 2,
+	  });
+	});
+	function AutoCompleteSelectHandler(event, ui)
+	{
+	  var selectedObj = ui.item;
+	}
+  
+  </script>
 <!-- <script>
 	$(function () {
 		$('#searched_item').typeahead({

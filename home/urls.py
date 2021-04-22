@@ -11,4 +11,5 @@ urlpatterns = [
     path('search',views.search, name='search'),
     path('search_a/<str:movie_name>',views.search_a, name='search_a'),
     path('actor_details/<str:actor_name>',views.actor_details, name='actor_details'),
+    path('search_auto',views.search_auto, name='search_auto')
 ]

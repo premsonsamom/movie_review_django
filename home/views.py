@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect,HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
 from pprint import pprint
+from django.http import JsonResponse
+import json
 
 #------------- import models -------------------
 from .models import Movies
@@ -74,7 +76,44 @@ def search(request):
         # ax = request.GET['username']
         ax = request.POST['search_items']
         sc = request.POST['search_category']
-        if sc == 'movie' and ax is not None:
+        if sc == 'all' and ax is not None:
+            search_ = Movies.objects.filter(movie_name__icontains=ax)
+            if not search_:
+                search_ = Artist.objects.filter(artist_name__icontains=ax)
+                if not search_:
+                    return render(request,'celebrity_single.html',{'b': 'Data not found!','search_':search_})
+                # search_result = Movies.objects.get(movie_name=ax)
+                # search_.id
+                else:
+                    search_result = Artist.objects.get(artist_name__icontains=ax)
+                    # search_.id
+                    actor_id_result = search_result.artist_id
+                    search_movie_result = Movies_artists.objects.filter(artist_id_id=int(actor_id_result))
+                    if not search_movie_result:
+                        return render(request,'celebrity_single.html',{'a': ax, 's':search_result,'search_': search_}) 
+                    else:
+                        for bb in search_movie_result:
+                            print(bb.movie_id_id,bb.movie_id.movie_name)
+                        print(search_movie_result.count())
+                        print(request.POST['search_items'])
+                        return render(request,'celebrity_single.html',{'a': ax, 's':search_result,'search_': search_,'movie_count':search_movie_result.count(), 'movie_result': search_movie_result})
+            else:
+                search_result = Movies.objects.get(movie_name__icontains=ax)
+                # search_.id
+                movie_id_result = search_result.movie_id
+
+                # search_actor_result = Movies_artists.objects.get(movie_id=movie_id_result)
+                search_actor_result = Movies_artists.objects.filter(movie_id_id=int(movie_id_result))
+                if not search_actor_result:
+                    return render(request,'test.html',{'a': ax, 's':search_result,'search_': search_}) 
+                else:   
+                    for bb in search_actor_result:
+                        print(bb.artist_id_id,bb.artist_id.artist_name)
+                    return render(request,'test.html',{'a': ax, 's':search_result,'search_': search_,'actor_result':search_actor_result,'actor_count': search_actor_result.count()})
+
+            
+            
+        elif sc == 'movie' and ax is not None:
             search_ = Movies.objects.filter(movie_name=ax)
             if not search_:
                 return render(request,'test.html',{'b': 'Data not found!','search_':search_})
@@ -146,3 +185,36 @@ def actor_details(request, actor_name):
         return render(request,'celebrity_single.html',{'s':search_result,'search_': search_}) 
     else:
         return render(request,'celebrity_single.html',{ 's':search_result,'search_': search_,'movie_count':search_movie_result.count(), 'movie_result': search_movie_result})
+
+
+# ******************* Auto Complete ******************
+# def search_auto(request):
+#     if 'term' in request.GET:
+#         qs = Artist.objects.filter(artist_name_icontains=request.GET.get('term'))
+#         actor_lists = list()
+#         for artist in qs:
+#             actor_lists.append()
+#         return JsonResponse(actor_lists, safe=False)
+#     return render(request, 'tst.html')
+
+def search_auto(request):
+  if request.is_ajax():
+    q = request.GET.get('term', '')
+    artist = Artist.objects.filter(artist_name__icontains=q)
+    movie = Movies.objects.filter(movie_name__icontains=q)
+    results = []
+    for at in artist:
+      artist_json = {}
+      artist_json = at.artist_name
+      results.append(artist_json)
+
+    for mv in movie:
+        movie_json = {}
+        movie_json = mv.movie_name
+        results.append(movie_json)
+    data = json.dumps(results)
+    
+  else:
+    data = 'fail'
+  mimetype = 'application/json'
+  return HttpResponse(data, mimetype)
